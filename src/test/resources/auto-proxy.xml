@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	         http://www.springframework.org/schema/beans/spring-beans.xsd
+		 http://www.springframework.org/schema/context
+		 http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <bean id="worldService" class="com.chen.myspring.service.WorldServiceImpl"/>
+
+    <bean class="com.chen.myspring.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>
+
+    <bean id="pointcutAdvisor" class="com.chen.myspring.aop.aspectj.AspectJExpressionPointcutAdvisor">
+        <property name="expression" value="execution(* com.chen.myspring.service.WorldService.explode(..))"/>
+        <property name="advice" ref="methodInterceptor"/>
+    </bean>
+    <bean id="pointcutAdvisor2" class="com.chen.myspring.aop.aspectj.AspectJExpressionPointcutAdvisor">
+        <property name="expression" value="execution(* com.chen.myspring.service.WorldService.explode(..))"/>
+        <property name="advice" ref="methodInterceptor2"/>
+    </bean>
+
+    <bean id="methodInterceptor" class="com.chen.myspring.aop.framework.adapter.MethodBeforeAdviceInterceptor">
+        <property name="advice" ref="beforeAdvice"/>
+    </bean>
+    <bean id="methodInterceptor2" class="com.chen.myspring.aop.framework.adapter.AfterReturningAdviceInterceptor">
+        <property name="advice" ref="afterAdvice"/>
+    </bean>
+
+    <bean id="beforeAdvice" class="com.chen.myspring.common.WorldServiceBeforeAdvice"/>
+    <bean id="afterAdvice" class="com.chen.myspring.common.WorldServiceAfterReturnAdvice"/>
+
+</beans>

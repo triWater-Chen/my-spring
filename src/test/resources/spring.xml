@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	         http://www.springframework.org/schema/beans/spring-beans.xsd
+		 http://www.springframework.org/schema/context
+		 http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <bean id="person" class="com.chen.myspring.bean.Person">
+        <property name="name" value="Alice"/>
+        <property name="car" ref="car"/>
+    </bean>
+
+    <bean id="car" class="com.chen.myspring.bean.Car">
+        <property name="brand" value="Bentley"/>
+    </bean>
+
+    <bean class="com.chen.myspring.common.CustomBeanFactoryPostProcessor"/>
+
+    <bean class="com.chen.myspring.common.CustomerBeanPostProcessor"/>
+
+    <bean id="helloService" class="com.chen.myspring.service.HelloService"/>
+
+</beans>
